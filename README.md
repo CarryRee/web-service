@@ -7,3 +7,8 @@ cargo run --bin auth-service
 
 // sqlx 迁移功能
 cargo install sqlx-cli --no-default-features --features native-tls,postgres
+
+🚀 设置指定仓库的提交邮箱和名称
+
+git config user.name "你的名字"
+git config user.email "你的邮箱@example.com"
