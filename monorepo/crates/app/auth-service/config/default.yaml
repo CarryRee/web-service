@@ -1,0 +1,8 @@
+database:
+  url: postgres://postgres:123456789@localhost:5432/mydb?sslmode=disable
+  max_connections: 10
+service:
+  name: auth-service
+  port: 8080
+log:
+  level: info

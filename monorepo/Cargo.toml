@@ -1,0 +1,35 @@
+[workspace]
+members = [
+    "crates/api",
+    "crates/app/auth-service",
+    "crates/app/file-service",
+    "crates/shared",
+]
+
+resolver = "3"
+
+[workspace.dependencies]
+# web 框架
+axum = "0.8.4"
+# 参数校验
+axum-valid = "0.24.0"
+# 序列化
+serde = "1.0.225"
+# 序列化 json
+serde_json = "1.0.145"
+# 序列化 yml
+serde_yml = "0.0.12"
+# 异步库
+tokio = { version = "1.47.1", features = ["rt-multi-thread", "macros"] }
+# 日志
+tracing = "0.1.41"
+# 日志 subscriber
+tracing-subscriber = "0.3.20"
+# 配置
+config = "0.15.16"
+# 项目路径
+project-root = "0.2.2"
+# 依赖注入
+shaku = "0.6.2"
+# ORM
+sqlx = { version = "0.8.6", features = [ "runtime-tokio", "tls-native-tls", "postgres", "uuid", "migrate" ] }
