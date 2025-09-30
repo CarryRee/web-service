@@ -1,5 +1,5 @@
 [package]
-name = "auth-service"
+name = "user-service"
 version = "0.1.0"
 edition = "2024"
 
@@ -13,3 +13,9 @@ tracing = { workspace = true }
 tracing-subscriber = { workspace = true }
 config = { workspace = true }
 sqlx = { workspace = true }
+async-trait = { workspace = true }
+validator = { workspace = true }
+bcrypt = { workspace = true }
+idgenerator = { workspace = true }
+time = { workspace = true }
+jsonwebtoken = { workspace = true }

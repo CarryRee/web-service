@@ -10,23 +10,32 @@ pub struct AppConfig {
     pub database: DatabaseConfig,
     pub service: ServiceConfig,
     pub log: LogConfig,
+    pub jwt: JWT,
 }
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct DatabaseConfig {
     pub url: String,
     pub max_connections: u32,
+    pub idle_timeout: u32,
 }
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct ServiceConfig {
     pub name: String,
     pub port: u16,
+    pub worker_id: u32,
+    pub worker_id_bit_len: u8,
 }
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct LogConfig {
     pub level: String,
+}
+
+#[derive(Debug, Serialize, Deserialize)]
+pub struct JWT {
+    pub secret: String,
 }
 
 impl AppConfig {

@@ -1,8 +1,14 @@
 database:
   url: postgres://postgres:123456789@localhost:5432/mydb?sslmode=disable
   max_connections: 10
+  idle_timeout: 60
 service:
   name: auth-service
   port: 8080
+  worker_id: 1
+  worker_id_bit_len: 6
 log:
   level: info
+jwt:
+  secret: "eb9cb586c8bf206e3728a738589323a3"
+

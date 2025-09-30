@@ -2,7 +2,7 @@ cargo new crate1 --lib  # 创建库 crate
 cargo new crate2 --bin  # 创建二进制 crate
 
 // 项目根目录
-cargo run --bin auth-service
+cargo run --bin user-service
 
 
 // sqlx 迁移功能

@@ -4,9 +4,6 @@ CREATE TABLE users (
     username VARCHAR(80) NOT NULL,            -- 用户名
     email VARCHAR(255) NOT NULL UNIQUE,       -- 邮箱，唯一
     password_hash VARCHAR(255) NOT NULL,      -- 存储 bcrypt 哈希（含盐值）
-    phone VARCHAR(64),                        -- 电话号码
-	country_code VARCHAR(4),  				  -- 国家代码
-    gender SMALLINT,                          -- 性别
     created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP, -- 注册时间
     updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP, -- 更新时间
     is_active BOOLEAN DEFAULT TRUE,           -- 账户是否激活

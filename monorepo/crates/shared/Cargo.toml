@@ -10,3 +10,4 @@ serde_json = { workspace = true }
 tracing = { workspace = true }
 tracing-subscriber = { workspace = true }
 project-root = { workspace = true }
+once_cell = { workspace = true }
