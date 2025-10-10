@@ -10,5 +10,8 @@ service:
 log:
   level: info
 jwt:
-  secret: "eb9cb586c8bf206e3728a738589323a3"
+  access_secret: "eb9cb586c8bf206e3728a738589323a3" 
+  refresh_secret: "550fdc135a162dca0300686168247a86"
+  access_validity_period: 86400
+  refresh_validity_period: 604800
 

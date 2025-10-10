@@ -1,4 +1,6 @@
-use crate::models::user::{LoginUserRequest, RegisterUserRequest};
+use crate::models::user::{
+    LoginUserReply, LoginUserRequest, RefreshTokenReply, RefreshTokenRequest, RegisterUserRequest,
+};
 use crate::services::user_service::UserService;
 use axum::{
     Json, Router,
@@ -14,6 +16,7 @@ pub fn create_router(service: Arc<UserService>) -> Router {
     let auth_router = Router::new()
         .route("/register", post(register))
         .route("/login", post(login))
+        .route("/refresh", post(refresh_token))
         .with_state(service);
 
     Router::new().nest("/auth", auth_router)
@@ -50,7 +53,7 @@ pub async fn register(
 pub async fn login(
     State(service): State<Arc<UserService>>,
     payload: Result<Json<LoginUserRequest>, JsonRejection>,
-) -> Result<Json<Reply<()>>, (StatusCode, Json<Reply<()>>)> {
+) -> Result<Json<Reply<LoginUserReply>>, (StatusCode, Json<Reply<()>>)> {
     let Json(req) = payload.map_err(|e| {
         tracing::error!("json error: {}", e);
         (
@@ -67,10 +70,38 @@ pub async fn login(
         )
     })?;
 
-    service
+    let reply = service
         .login(req)
         .await
         .map_err(|code: u16| (StatusCode::INTERNAL_SERVER_ERROR, Json(Reply::error(code))))?;
 
-    Ok(Json(Reply::success(())))
+    Ok(Json(Reply::success(reply)))
+}
+
+pub async fn refresh_token(
+    State(service): State<Arc<UserService>>,
+    payload: Result<Json<RefreshTokenRequest>, JsonRejection>,
+) -> Result<Json<Reply<RefreshTokenReply>>, (StatusCode, Json<Reply<()>>)> {
+    let Json(req) = payload.map_err(|e| {
+        tracing::error!("json error: {}", e);
+        (
+            StatusCode::BAD_REQUEST,
+            Json(Reply::error(constants::CODE_PARAMETER_ERROR)),
+        )
+    })?;
+
+    req.validate().map_err(|e| {
+        tracing::error!("validate error: {}", e);
+        (
+            StatusCode::BAD_REQUEST,
+            Json(Reply::error(constants::CODE_PARAMETER_ERROR)),
+        )
+    })?;
+
+    let reply = service
+        .refresh_token(req)
+        .await
+        .map_err(|code: u16| (StatusCode::INTERNAL_SERVER_ERROR, Json(Reply::error(code))))?;
+
+    Ok(Json(Reply::success(reply)))
 }

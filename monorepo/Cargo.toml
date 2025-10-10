@@ -9,7 +9,7 @@ resolver = "3"
 
 [workspace.dependencies]
 # web 框架
-axum = "0.8.5"
+axum = "0.8.6"
 # 参数校验
 axum-valid = "0.24.0"
 # 序列化
@@ -25,7 +25,7 @@ tracing = "0.1.41"
 # 日志 subscriber
 tracing-subscriber = "0.3.20"
 # 配置
-config = "0.15.17"
+config = "0.15.18"
 # 项目路径
 project-root = "0.2.2"
 # ORM
@@ -43,4 +43,4 @@ once_cell = "1.21.3"
 # 时间库
 time = "0.3.44"
 # jwt
-jsonwebtoken = { version = "10", features = ["aws_lc_rs"] }
+jsonwebtoken = { version = "10", features = ["rust_crypto"] }

@@ -32,3 +32,26 @@ pub struct LoginUserRequest {
     #[validate(length(min = 6))]
     pub password: String,
 }
+
+#[derive(Debug, Deserialize, Validate)]
+pub struct RefreshTokenRequest {
+    #[validate(length(min = 1))]
+    pub refresh_token: String,
+}
+
+#[derive(Debug, Serialize, Validate)]
+pub struct LoginUserReply {
+    pub username: String,
+    pub email: String,
+    pub role: String,
+    pub access_token: String,
+    pub refresh_token: String,
+    pub access_expire_time: i64,
+    pub refresh_expire_time: i64,
+}
+
+#[derive(Debug, Serialize)]
+pub struct RefreshTokenReply {
+    pub access_token: String,
+    pub access_expire_time: i64,
+}

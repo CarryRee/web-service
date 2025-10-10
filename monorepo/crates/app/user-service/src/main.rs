@@ -9,6 +9,7 @@ use std::time::Duration;
 use crate::handlers::auth_handler;
 use crate::repositories::{pg_user_repo, user_repo};
 use crate::services::user_service;
+use crate::models::claims::JwtSecret;
 
 // 使用子模块文件的方式
 pub mod handlers {
@@ -25,6 +26,7 @@ pub mod repositories {
 }
 
 pub mod models {
+    pub mod claims;
     pub mod user;
 }
 
@@ -39,9 +41,16 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let url = config.database.url;
     let max_connect = config.database.max_connections;
     let timeout = config.database.idle_timeout as u64;
-    let jwt_secret = config.jwt.secret;
     let work_id = config.service.worker_id;
     let worker_id_bit_len = config.service.worker_id_bit_len;
+
+    let secret = JwtSecret {
+        access_secret: config.jwt.access_secret,
+        access_validity_period: config.jwt.access_validity_period,
+        refresh_secret: config.jwt.refresh_secret,
+        refresh_validity_period: config.jwt.refresh_validity_period,
+    };
+    let jwt_secret = Arc::new(secret);
 
     let pool = PgPoolOptions::new()
         .max_connections(max_connect)

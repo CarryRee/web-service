@@ -35,7 +35,10 @@ pub struct LogConfig {
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct JWT {
-    pub secret: String,
+    pub access_secret: String,
+    pub access_validity_period: i64,
+    pub refresh_secret: String,
+    pub refresh_validity_period: i64,
 }
 
 impl AppConfig {
